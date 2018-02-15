@@ -18,7 +18,8 @@ module.exports = {
   },
   plugins: ['~/plugins/vuetify.js'],
   css: [
-    '~/assets/style/app.styl'
+    '~/assets/style/app.styl',
+    '~/assets/style/vue2Dropzone.styl'
   ],
   modules: [
     '@nuxtjs/pwa',
@@ -27,10 +28,14 @@ module.exports = {
   ],
   auth: {
     endpoints: {
-      login: { url: 'http://localhost:8004/login_check', method: 'post', propertyName: 'token' },
-      logout: { url: 'http://localhost:8004/logout', method: 'post' },
-      user: { url: 'http://localhost:8004/user_check', method: 'get', propertyName: 'user' }
+      login: { url: '/login_check', method: 'post', propertyName: 'token' },
+      logout: { url: '/logout', method: 'post' },
+      user: { url: '/user_check', method: 'get', propertyName: 'user' }
     }
+  },
+  axios: {
+    baseURL: 'http://localhost:8000',
+    browserBaseURL: 'http://localhost:8000'
   },
   /*
   ** Customize the progress bar color

@@ -1,17 +1,17 @@
 <template>
   <v-layout>
-    <pre>{{ users }}</pre>
+    <pre></pre>
   </v-layout>
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  // import { mapState } from 'vuex'
 
   export default {
     name: 'inspire',
-    computed: mapState(['users']),
+    // computed: mapState(['users']),
     mounted: function () {
-      this.$store.dispatch('GET_USERS')
+      // this.$store.dispatch('GET_USERS')
     }
   }
 </script>

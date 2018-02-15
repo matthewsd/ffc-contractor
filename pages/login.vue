@@ -9,9 +9,6 @@
             records and documents.</p>
           <p>Please use the form below to sign into your profile. You should have been
             supplied your contractor number and password by your current employer.</p>
-          <!--</v-card-text>-->
-          <!--<v-card-title class="headline">Sign In.</v-card-title>-->
-          <!--<v-card-text v-if="loading == false">-->
           <v-form v-model="valid" v-if="loading == false" ref="form" lazy-validation @submit.prevent="login">
             <v-container grid-list-md>
               <v-alert color="error" icon="warning" value="true" v-if="formError">
@@ -30,7 +27,7 @@
                 <v-flex sm12 m6 lg6>
                   <v-text-field
                           label="Password"
-                          v-model="password""
+                          v-model="password"
                           :append-icon="e1 ? 'visibility_off' : 'visibility'"
                           :append-icon-cb="() => (e1 = !e1)"
                           :type="e1 ? 'password' : 'text'"
@@ -68,7 +65,7 @@
       (v) => !!v || `Contractor ID is required`,
       (v) => v && ((v.length >= 5) || `Your Contractor ID must be more than 5 digits`),
       (v) => v && ((v.length <= 7) || `Your Contractor ID must be less than 7 digits`),
-      (v) => /^\d+$/.test(v) || `Your Contractor ID should contain only numbers`
+      (v) => v && (/^\d+$/.test(v) || `Your Contractor ID should contain only numbers`)
     ]
   }
   function passwordChecker () {
@@ -86,7 +83,7 @@
       loading: false,
       e1: true,
       valid: false,
-      username: '',
+      username: null,
       password: '',
       usernameRules: numberChecker(),
       passwordRules: passwordChecker(),
@@ -103,7 +100,9 @@
             }
           })
           this.$store.dispatch('GET_NAVIGATION')
-          this.$router.replace({path: '/inspire'})
+          this.$store.dispatch('GET_CONTRACTOR')
+          this.$store.dispatch('GET_EMPLOYEE')
+          this.$router.replace({path: '/'})
           this.username = ''
           this.password = ''
           this.formError = null
