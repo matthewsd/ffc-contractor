@@ -2,6 +2,7 @@
 node_modules
 /.idea/
 .idea
+.idea/
 .env
 # logs
 npm-debug.log
