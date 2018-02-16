@@ -3,7 +3,7 @@ node_modules
 /.idea/
 .idea
 .idea/
-.env
+#.env
 # logs
 npm-debug.log
 
