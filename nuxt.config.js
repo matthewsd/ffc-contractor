@@ -1,3 +1,4 @@
+require('dotenv').config()
 
 module.exports = {
   middleware: ['auth'],
@@ -22,6 +23,7 @@ module.exports = {
     '~/assets/style/vue2Dropzone.styl'
   ],
   modules: [
+    '@nuxtjs/dotenv',
     '@nuxtjs/pwa',
     '@nuxtjs/axios',
     '@nuxtjs/auth'
@@ -34,8 +36,8 @@ module.exports = {
     }
   },
   axios: {
-    baseURL: 'http://localhost:8000',
-    browserBaseURL: 'http://localhost:8000'
+    baseURL: process.env.APP_API_URL,
+    browserBaseURL: process.env.APP_API_URL
   },
   /*
   ** Customize the progress bar color

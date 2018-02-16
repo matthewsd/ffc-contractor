@@ -338,7 +338,7 @@ const createStore = () => {
 function dropOptions (question, contractor) {
   var required = (question.answer_evidence_isRequired) ? ' * Required' : ''
   return {
-    url: `http://doug.portal.solutionhost.co.uk/apps2/Portal/Upload/UploadPqqImage/${question.client}/${contractor}`,
+    url: `${process.env.UPLOAD_API_URL}/${question.client}/${contractor}`,
     maxFilesize: 25,
     method: 'POST',
     addRemoveLinks: true,
