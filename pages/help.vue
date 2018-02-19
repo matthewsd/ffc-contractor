@@ -1,12 +1,6 @@
 <template>
     <v-container grid-list-md>
-        <v-layout
-                justify-center
-                align-center v-if="!loaded">
-            <div style="text-align:center;">
-                <v-progress-circular indeterminate v-bind:size="300" v-bind:width="2" color="orange">Loading...</v-progress-circular>
-            </div>
-        </v-layout>
+        <loading-circle v-if="!loaded"/>
         <v-layout column align-center v-else-if="loaded">
             <v-flex xs12 sm12 md12 style="width:100%;">
                 <v-card  xs12 sm12 md10 tile color="deep-orange darken-4">
@@ -33,19 +27,21 @@
 
 <script>
   import { mapState } from 'vuex'
-  import ExternalLink from '~/components/external-link.vue'
+  import ExternalLink from '~/components/external-link'
+  import LoadingCircle from '~/components/loading-circle'
 
   export default {
     name: 'help',
     data: () => {
       return {
-        loaded: true
+        loaded: false
       }
     },
-    components: { ExternalLink },
+    components: { ExternalLink, LoadingCircle },
     computed: mapState(['helps']),
-    mounted: function () {
-      this.$store.dispatch('GET_HELPS')
+    mounted: async function () {
+      await this.$store.dispatch('GET_HELPS')
+      this.loaded = true
     }
   }
 </script>

@@ -94,11 +94,7 @@
                     <v-footer></v-footer>
                 </v-card>
                 <v-card v-else>
-                    <v-card-title primary-title>
-                        <div style="margin:0 auto;">
-                            <v-progress-circular indeterminate v-bind:size="300" v-bind:width="2" color="orange" class="center">Loading Sectors...</v-progress-circular>
-                        </div>
-                    </v-card-title>
+                    <loading-circle/>
                 </v-card>
             </v-flex>
             <v-flex xs12 md4>
@@ -110,8 +106,8 @@
                         </v-badge>
                         <v-toolbar-title>&nbsp;&nbsp;Inbox</v-toolbar-title>
                     </v-toolbar>
-                    <v-list three-line>
-                        <template v-for="note in notes">
+                    <v-list three-line v-if="notes.loaded">
+                        <template v-for="note in notes.data">
                             <v-list-tile
                                     avatar
                                     ripple
@@ -139,6 +135,9 @@
                             </v-list-tile>
                         </template>
                     </v-list>
+                    <v-card-title v-if="!notes.loaded">
+                        <loading-circle/>
+                    </v-card-title>
                     <v-footer>
                         <v-card-text class="text-xs-center">
                             <small>(click an item to mark as read)</small>
@@ -155,10 +154,12 @@
   import {mapState} from 'vuex'
   import moment from 'moment'
   import ProgressIndicator from '~/components/progress-indicator.vue'
+  import LoadingCircle from '~/components/loading-circle'
 
   export default {
     components: {
-      ProgressIndicator
+      ProgressIndicator,
+      LoadingCircle
     },
     middleware: 'auth',
     name: 'index',
@@ -168,8 +169,10 @@
     },
     methods: {
       setRead (note) {
-        note.read = true
-        this.$store.dispatch('MARK_NOTE_READ', note['@id'])
+        if (note.read === false) {
+          note.read = true
+          this.$store.dispatch('MARK_NOTE_READ', note['@id'])
+        }
       },
       moment: function (date) {
         return moment(date)

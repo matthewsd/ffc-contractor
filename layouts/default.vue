@@ -3,6 +3,12 @@
         height: 100%;
         margin-top: -10px;
     }
+    .toolbar--fixed {
+        z-index: 1000;
+    }
+    .navigation-drawer {
+        z-index: 1001;
+    }
 </style>
 
 <template>

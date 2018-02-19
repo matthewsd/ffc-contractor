@@ -1,12 +1,7 @@
 <template>
-    <v-layout
-            justify-center
-            align-center v-if="!loaded">
-        <div style="text-align:center;">
-            <v-progress-circular indeterminate v-bind:size="300" v-bind:width="2" color="orange">Loading...</v-progress-circular>
-        </div>
-    </v-layout>
-    <v-container grid-list-md v-else-if="loaded">
+    <v-layout>
+    <loading-circle v-if="!loaded"/>
+    <v-container grid-list-md v-if="loaded">
         <v-toolbar color="deep-orange darken-4" dark>
             <v-icon>person</v-icon>
             <v-toolbar-title>Profile Details</v-toolbar-title>
@@ -233,11 +228,13 @@
             </v-form>
         </v-tabs>
     </v-container>
+    </v-layout>
 </template>
 
 <script>
   // import Api from '~/utilities/api'
   import { mapGetters } from 'vuex'
+  import LoadingCircle from '~/components/loading-circle'
 
   export default {
     middleware: 'auth',
@@ -247,12 +244,14 @@
       await store.dispatch('GET_JOBTITLES')
     },
     computed: mapGetters(['contractor', 'employee', 'jobtitles']),
+    components: {
+      LoadingCircle
+    },
     name: 'profile_settings',
     data () {
       return {
         loaded: false,
         activeTab: null,
-        loading: false,
         search: null
       }
     },

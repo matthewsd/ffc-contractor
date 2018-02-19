@@ -30,12 +30,14 @@
 <script>
   // import Api from '~/utilities/api'
   import QuestionRow from '~/components/question-row'
+  import LoadingCircle from '~/components/loading-circle'
   import { mapState } from 'vuex'
 
   export default {
     middleware: 'auth',
     components: {
-      QuestionRow
+      QuestionRow,
+      LoadingCircle
     },
     async asyncData (context) {
       await context.store.dispatch('GET_STANDARD_SECTOR')

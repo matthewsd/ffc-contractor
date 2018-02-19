@@ -7,9 +7,7 @@
     .dropzone .dz-preview.dz-file-preview .dz-image {
         min-width: 180px !important;
     }
-    .menuable__content__active{
-        min-width: 0 !important;
-    }
+
 </style>
 <template>
     <v-flex row xs12>
@@ -51,23 +49,32 @@
                                 ></v-select>
                             </v-flex>
                             <v-flex xs12 md12 lg4>
-                                <v-menu
-                                        v-if="question.question_add_expiry == 1"
+
+                                <v-menu v-if="question.question_add_expiry == 1"
+                                        ref="question.date_picker_shown"
                                         lazy
+                                        :close-on-content-click="false"
                                         v-model="question.date_picker_shown"
                                         transition="scale-transition"
+                                        offset-y
                                         full-width
+                                        :nudge-left="18"
+                                        min-width="290px"
+                                        :return-value.sync="question.answer_date_expires"
                                 >
                                     <v-text-field
                                             slot="activator"
-                                            v-bind:label='"Expiry Date" + ((question.answer_expiry_isRequired == 1)? "*" : "")'
+                                            label="Picker in menu"
                                             v-model="question.answer_date_expires"
                                             prepend-icon="event"
+                                            readonly
                                     ></v-text-field>
-                                    <v-date-picker v-model='question.answer_date_expires'
-                                                   scrollable
-                                                   actions
-                                    >
+                                    <v-date-picker v-model="question.answer_date_expires"
+                                                   color="orange darken-2"
+                                                   scrollable>
+                                        <v-spacer></v-spacer>
+                                        <v-btn flat color="primary" @click="question.date_picker_shown = false">Cancel</v-btn>
+                                        <v-btn flat color="primary" @click="$refs.question.date_picker_shown.save(question.answer_date_expires)">OK</v-btn>
                                     </v-date-picker>
                                 </v-menu>
                             </v-flex>
@@ -80,6 +87,7 @@
                                     :ref='"dropzone" + ( subcount ? "-sub" : "") + question.question_id'
                                     :id='"dropzone" + ( subcount ? "-sub" : "") + question.question_id'
                                     v-on:vdropzone-complete="uploadSuccess"
+                                    v-on:vdropzone-processing="processing"
                                     @vdropzone-removed-file="removeFile"
                                     v-on:vdropzone-mounted="loadFile('dropzone' + ( subcount ? '-sub' : '') + question.question_id, question)"
                                     :options='question.dropOptions'
@@ -134,10 +142,14 @@
       },
       async uploadSuccess (response) {
         this.question.answer_evidence = response.name
+        this.$store.commit('SET_BUTTON_STATE', false)
       },
       removeFile () {
         this.question.answer_evidence = null
         this.question.current_score--
+      },
+      processing () {
+        this.$store.commit('SET_BUTTON_STATE', true)
       }
     }
   }
