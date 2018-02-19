@@ -1,7 +1,7 @@
 {
-  "name": "user-front",
+  "name": "FFC",
   "version": "1.0.0",
-  "description": "Nuxt.js + Vuetify.js project",
+  "description": "Solution Host - First for Contractors",
   "author": "Doug <doug@bonniechef.com>",
   "private": true,
   "scripts": {
