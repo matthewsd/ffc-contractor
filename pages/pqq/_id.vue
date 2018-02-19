@@ -1,11 +1,5 @@
 <template>
-    <v-layout
-            justify-center
-            align-center v-if="!loaded">
-        <div style="text-align:center;">
-            <v-progress-circular indeterminate v-bind:size="300" v-bind:width="2" color="orange">Loading...</v-progress-circular>
-        </div>
-    </v-layout>
+    <loading-circle v-if="!loaded"/>
     <v-container grid-list-md v-else-if="loaded">
         <v-toolbar color="deep-orange darken-4" dark>
             <v-icon>assignment</v-icon>
@@ -22,7 +16,8 @@
                              :count="i"
                              :subcount="si + 1"></QuestionRow>
             </v-layout>
-            <v-btn color="success" style='float:right' @click="submit">Save Answers <v-icon>done</v-icon></v-btn>
+            <v-btn color="success" style='float:right' :disabled="buttonIsDisabled"
+                    @click="submit">Save Answers <v-icon>done</v-icon></v-btn>
         </v-form>
         <!--</v-container>-->
     </v-container>
@@ -31,6 +26,7 @@
 <script>
   import { mapState } from 'vuex'
   import QuestionRow from '~/components/question-row'
+  import LoadingCircle from '~/components/loading-circle'
 
   export default {
     middleware: 'auth',
@@ -43,14 +39,16 @@
       this.loaded = true
     },
     components: {
-      QuestionRow
+      QuestionRow,
+      LoadingCircle
     },
     async asyncData (context) {
       await context.store.dispatch('GET_WORK_SECTOR', context.params.id)
     },
-    computed: mapState(['workSector']),
+    computed: mapState(['workSector', 'buttonIsDisabled']),
     methods: {
       async submit () {
+        this.loading = true
         this.$store.dispatch('PUT_WORK_SECTOR', this.workSector)
         this.$store.commit('SET_ALERT', { message: 'Successfully saved your answers.', colour: 'green darken-2', active: true })
         this.$store.dispatch('GET_NAVIGATION')

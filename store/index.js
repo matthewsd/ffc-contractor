@@ -6,7 +6,10 @@ const createStore = () => {
     state: {
       navigation: [],
       helps: [],
-      notes: [],
+      notes: {
+        loaded: false,
+        data: []
+      },
       workSectors: [],
       workSector: {},
       staticSectors: [],
@@ -26,7 +29,8 @@ const createStore = () => {
       contractor: {},
       employee: {},
       jobtitles: [],
-      profileProgressId: null
+      profileProgressId: null,
+      buttonIsDisabled: true
     },
     getters: {
       navigation (state) {
@@ -67,6 +71,9 @@ const createStore = () => {
       },
       employee (state) {
         return state.employee
+      },
+      buttonIsDisabled (state) {
+        return state.buttonIsDisabled
       }
     },
     mutations: {
@@ -121,6 +128,9 @@ const createStore = () => {
           message: '',
           colour: ''
         }
+      },
+      SET_BUTTON_STATE (state, payload) {
+        state.buttonIsDisabled = payload
       }
     },
     actions: {
@@ -169,7 +179,7 @@ const createStore = () => {
       },
       async GET_NOTES ({commit, state}) {
         const {data} = await this.$axios.get(`/notes`)
-        commit('SET_NOTES', data['hydra:member'])
+        commit('SET_NOTES', { loaded: true, data: data['hydra:member'] })
         state.unreadNotes = 0
         await data['hydra:member'].map((note) => {
           if (!note.read) {
@@ -263,7 +273,7 @@ const createStore = () => {
       async getAlerts (context, {alert}) {
         context.commit('SET_ALERT', alert)
       },
-      async PUT_ACTION ({store, commit, state}, url, department) {
+      async PUT_ACTION ({store, commit, state, dispatch}, {url, department}) {
         if (state.auth.loggedIn) {
           // If Contractor already has a contact_id then it's as simple as adding an action
           if (state.contractor.contact) {
@@ -277,6 +287,7 @@ const createStore = () => {
               sticky: false
             })
           } else {
+            var jobtitle = null
             // Otherwise we have to do some sanity checking so we don't duplicate the Contact
             var contacts = []
             if (state.contractor.companyNumber) {
@@ -307,28 +318,47 @@ const createStore = () => {
               // guessing, put a new contact in BUT with a note stating it is more than likely a duplicate and it's worth
               // checking the other match.
               let owner = await this.$axios.put(`/staff/web-selector/increment/${department}`)
-              let jobtitle = await getJobtitleName(state.employee.jobtitle)
-              let contact = await this.$axios.post(`/contacts`, newContact(state.contractor, state.employee, jobtitle, owner.username))
+              if (state.employee.jobtitle) {
+                jobtitle = await dispatch('GET_JOBTITLE_NAME', state.employee.jobtitle)
+              }
+              let contact = await this.$axios.post(`/contacts`, newContact(state.contractor, state.employee, jobtitle, owner.data.username))
               this.$axios.post(`/actions`, {
                 contact: contact.data['@id'],
                 user: 'FFC-CONTRACTOR',
                 notes: `*POSSIBLE DUPLICATE PLEASE CHECK* Contractor ID ${state.contractor.id} for Client ${state.auth.user.client.id} clicked on ${url}`,
                 sticky: false
               })
+              this.$axios.put(state.contractor['@id'], { contact: contact.data['@id'] })
+              dispatch('GET_CONTRACTOR')
             } else {
               // Finally. No matches found, so a simple Contact & Action insert, but get the new sales owner first
               // by using the web selector endpoint.
               let owner = await this.$axios.put(`/staff/web-selector/increment/${department}`)
-              let jobtitle = await getJobtitleName(state.employee.jobtitle)
+              if (state.employee.jobtitle) {
+                jobtitle = await dispatch('GET_JOBTITLE_NAME', state.employee.jobtitle)
+              }
               let contact = await this.$axios.post(`/contacts`, newContact(state.contractor, state.employee, jobtitle, owner.data.username))
               this.$axios.post(`/actions`, {
                 contact: contact.data['@id'],
                 user: 'FFC-CONTRACTOR',
-                notes: `Contractor ID ${this.contractor.id} for Client ${state.auth.user.client.id} clicked on ${url}`,
+                notes: `Contractor ID ${state.contractor.id} for Client ${state.auth.user.client.id} clicked on ${url}`,
                 sticky: false
               })
+              this.$axios.put(state.contractor['@id'], { contact: contact.data['@id'] })
+              dispatch('GET_CONTRACTOR')
             }
           }
+        }
+      },
+      async GET_JOBTITLE_NAME ({state}, jobtitle) {
+        if (jobtitle) {
+          console.log(jobtitle)
+          console.log('got new meth')
+          let jobtitleReq = await this.$axios.get(jobtitle)
+          console.log(jobtitleReq.data.name)
+          return jobtitleReq.data.name
+        } else {
+          return ''
         }
       }
     }
@@ -350,15 +380,8 @@ function dropOptions (question, contractor) {
     dictDefaultMessage: `Drop a document here, or tap here to select a document to upload. ${required}`
   }
 }
-async function getJobtitleName (jobtitle) {
-  if (jobtitle) {
-    let jobtitleReq = await this.$axios.get(jobtitle)
-    return jobtitleReq.data.name
-  } else {
-    return ''
-  }
-}
 function newContact (contractor, employee, jobtitle, owner) {
+  console.log(owner)
   return {
     companyName: contractor.company,
     name: contractor.forename + ' ' + contractor.surname,
