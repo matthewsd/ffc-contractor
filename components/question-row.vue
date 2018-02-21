@@ -18,7 +18,7 @@
                     <v-flex d-flex xs12 md8 lg10>
                         <v-layout row wrap>
                             <v-flex xs12 md12 lg4>
-                                <p><strong>Q{{count + 1}}{{ subcount ? '.' + subcount : null }}: </strong>
+                                <p><v-icon v-if="question.question_add_expiry && moment(question.answer_date_expires) > moment()" color="red">warning</v-icon><strong>Q{{count + 1}}{{ subcount ? '.' + subcount : null }}: </strong>
                                     <Question :question="question"></Question>
                                 </p>
                             </v-flex>
@@ -64,7 +64,7 @@
                                 >
                                     <v-text-field
                                             slot="activator"
-                                            label="Picker in menu"
+                                            label="Date Expires"
                                             v-model="question.answer_date_expires"
                                             prepend-icon="event"
                                             readonly
@@ -106,6 +106,7 @@
   import 'vue2-dropzone/dist/vue2Dropzone.css'
   import Question from '~/components/question'
   import { mapState } from 'vuex'
+  import moment from 'moment'
 
   export default {
     props: {
@@ -150,6 +151,13 @@
       },
       processing () {
         this.$store.commit('SET_BUTTON_STATE', true)
+      },
+      moment: function (date) {
+        if (date) {
+          return moment(date)
+        } else {
+          return moment()
+        }
       }
     }
   }
