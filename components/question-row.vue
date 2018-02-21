@@ -18,7 +18,11 @@
                     <v-flex d-flex xs12 md8 lg10>
                         <v-layout row wrap>
                             <v-flex xs12 md12 lg4>
-                                <p><v-icon v-if="question.question_add_expiry && moment(question.answer_date_expires) > moment()" color="red">warning</v-icon><strong>Q{{count + 1}}{{ subcount ? '.' + subcount : null }}: </strong>
+                                <p>
+                                    <v-icon
+                                        v-if="question.question_add_expiry == 1 && moment(question.answer_date_expires).format('YYYY-MM-DD') < moment().format('YYYY-MM-DD')"
+                                        color="red">warning</v-icon>
+                                    <strong>Q{{count + 1}}{{ subcount ? '.' + subcount : null }}: </strong>
                                     <Question :question="question"></Question>
                                 </p>
                             </v-flex>

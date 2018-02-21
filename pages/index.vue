@@ -140,7 +140,7 @@
                     </v-card-title>
                     <v-footer>
                         <v-card-text class="text-xs-center">
-                            <small>(click an item to mark as read)</small>
+                            <small>(tap an item to mark as read)</small>
                         </v-card-text>
                     </v-footer>
                 </v-card>
