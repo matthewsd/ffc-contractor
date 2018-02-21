@@ -30,7 +30,7 @@ const createStore = () => {
       employee: {},
       jobtitles: [],
       profileProgressId: null,
-      buttonIsDisabled: true
+      buttonIsDisabled: false
     },
     getters: {
       navigation (state) {
@@ -404,4 +404,5 @@ function newContact (contractor, employee, jobtitle, owner) {
     foundUs: 10
   }
 }
+
 export default createStore
