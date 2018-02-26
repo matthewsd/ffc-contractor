@@ -6,6 +6,7 @@ const createStore = () => {
     state: {
       navigation: [],
       helps: [],
+      files: [],
       notes: {
         loaded: false,
         data: []
@@ -38,6 +39,9 @@ const createStore = () => {
       },
       helps (state) {
         return state.helps
+      },
+      files (state) {
+        return state.files
       },
       notes (state) {
         return state.notes
@@ -107,6 +111,9 @@ const createStore = () => {
       SET_HELPS (state, payload) {
         state.helps = payload
       },
+      SET_FILES (state, payload) {
+        state.files = payload
+      },
       SET_NOTES (state, payload) {
         state.notes = payload
       },
@@ -161,7 +168,8 @@ const createStore = () => {
           await dispatch('GET_SECTOR_PROGRESSES')
           await commit('SET_NAVIGATION', [
             {icon: 'dashboard', title: 'Dashboard', to: '/'},
-            {icon: 'assignment', title: 'PQQ', to: '/inspire', model: true, children: state.sectorsSorted},
+            {icon: 'assignment', title: 'PQQ', model: true, children: state.sectorsSorted},
+            {icon: 'cloud', title: 'Shared Files', to: '/files'},
             {icon: 'help', title: 'Help', to: '/help'},
             {icon: 'cancel', title: 'Log Out', to: '/logout'}
           ])
@@ -176,6 +184,10 @@ const createStore = () => {
       async GET_HELPS ({commit, store}) {
         let {data} = await this.$axios.get(`/helps`)
         commit('SET_HELPS', data['hydra:member'])
+      },
+      async GET_FILES ({commit, store}) {
+        let {data} = await this.$axios.get(`/files`)
+        commit('SET_FILES', data['hydra:member'])
       },
       async GET_NOTES ({commit, state}) {
         const {data} = await this.$axios.get(`/notes`)

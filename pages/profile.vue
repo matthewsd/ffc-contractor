@@ -71,7 +71,8 @@
                             </v-card-text>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn color="info" @click.native="changeTab('contact')">Contact Details
+                                <v-btn color="info" @click.native="changeTab('contact')">
+                                    <span class="hidden-xs-only">Contact Details</span>
                                     <v-icon>navigate_next</v-icon>
                                 </v-btn>
                                 <v-btn color="success" @click="submit()">Save
@@ -162,10 +163,11 @@
                             <v-card-actions>
                                 <v-btn color="info" @click.native="changeTab('personal')">
                                     <v-icon>navigate_before</v-icon>
-                                    Personal Details
+                                    <span class="hidden-xs-only">Personal Details</span>
                                 </v-btn>
                                 <v-spacer></v-spacer>
-                                <v-btn color="info" @click.native="changeTab('company')">Company Details
+                                <v-btn color="info" @click.native="changeTab('company')">
+                                    <span class="hidden-xs-only">Company Details</span>
                                     <v-icon>navigate_next</v-icon>
                                 </v-btn>
                                 <v-btn color="success" @click="submit()">Save
@@ -215,7 +217,7 @@
                             <v-card-actions>
                                 <v-btn color="info" @click.native="changeTab('contact')">
                                     <v-icon>navigate_before</v-icon>
-                                    Contact Details
+                                    <span class="hidden-xs-only">Contact Details</span>
                                 </v-btn>
                                 <v-spacer></v-spacer>
                                 <v-btn color="success" @click="submit()">Save

@@ -9,6 +9,18 @@
     .navigation-drawer {
         z-index: 1001;
     }
+    .menuable__content__active {
+        z-index: 1000 !important;
+    }
+    .vue-dropzone {
+        max-width: 100%;
+    }
+    .dz-preview, .dz-image {
+        width: 100%;
+    }
+    .dropzone .dz-preview {
+        margin: 0 auto;
+    }
 </style>
 
 <template>
