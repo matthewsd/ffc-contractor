@@ -12,16 +12,17 @@
 <template>
     <v-flex row xs12>
         <!--<v-card color="white">-->
-        <v-card :color="(subcount)?'grey lighten-2': 'white'">
+        <v-card :color="(question.question_add_expiry == 1 && moment(question.answer_date_expires).format('YYYY-MM-DD') < moment().format('YYYY-MM-DD'))?'red lighten-4':(subcount)?'grey lighten-2': 'white'">
             <v-card-text>
                 <v-layout row wrap>
                     <v-flex d-flex xs12 md8 lg10>
                         <v-layout row wrap>
                             <v-flex xs12 md12 lg4>
+                                <p v-if="question.question_add_expiry == 1 && moment(question.answer_date_expires).format('YYYY-MM-DD') < moment().format('YYYY-MM-DD')"
+                                >
+                                    <v-icon color="red">warning</v-icon> <strong>Answer has Expired</strong>
+                                </p>
                                 <p>
-                                    <v-icon
-                                        v-if="question.question_add_expiry == 1 && moment(question.answer_date_expires).format('YYYY-MM-DD') < moment().format('YYYY-MM-DD')"
-                                        color="red">warning</v-icon>
                                     <strong>Q{{count + 1}}{{ subcount ? '.' + subcount : null }}: </strong>
                                     <Question :question="question"></Question>
                                 </p>
@@ -48,7 +49,6 @@
                                         v-model="question.answer"
                                         :items="yesnona_items"
                                         :label='"Please select answer" + ((question.answer_isRequired == 1)? "*" : "")'
-                                        single-line
                                         bottom
                                 ></v-select>
                             </v-flex>
@@ -68,13 +68,14 @@
                                 >
                                     <v-text-field
                                             slot="activator"
-                                            label="Date Expires"
+                                            :label='"Date Expires" + ((question.answer_expiry_isRequired == 1)? "*" : "")'
                                             v-model="question.answer_date_expires"
                                             prepend-icon="event"
                                             readonly
                                     ></v-text-field>
                                     <v-date-picker v-model="question.answer_date_expires"
                                                    color="orange darken-2"
+                                                   locale="gb-gb"
                                                    scrollable>
                                         <v-spacer></v-spacer>
                                         <v-btn flat color="primary" @click="question.date_picker_shown = false">Cancel</v-btn>

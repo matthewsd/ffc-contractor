@@ -33,7 +33,8 @@ module.exports = {
       login: { url: '/login_check', method: 'post', propertyName: 'token' },
       logout: { url: '/logout', method: 'post' },
       user: { url: '/user_check', method: 'get', propertyName: 'user' }
-    }
+    },
+    resetOnError: true
   },
   axios: {
     baseURL: process.env.APP_API_URL,
