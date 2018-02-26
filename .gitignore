@@ -6,7 +6,7 @@ node_modules
 #.env
 # logs
 npm-debug.log
-
+.env
 # Nuxt build
 .nuxt
 
