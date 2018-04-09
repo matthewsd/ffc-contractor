@@ -29,7 +29,7 @@
                             </v-flex>
                             <v-flex xs12 md12 lg4>
                                 <v-text-field
-                                        v-if="question.answer_type == 'freetext'"
+                                        v-if="question.answer_type == 'freetext' || question.answer_type == 'textarea'"
                                         :label='"Answer" + ((question.answer_isRequired == 1)? "*" : "")'
                                         v-model="question.answer"
                                         multi-line

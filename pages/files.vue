@@ -19,7 +19,7 @@
                     grid-list-lg
             >
                 <v-layout row wrap>
-                    <v-flex xs12 sm4 md3 lg3 xl2 v-for="file in files" :key="file.id">
+                    <v-flex xs12 sm4 md3 lg3 xl2 v-for="file in files" :key="file.id" v-if="files.length > 0">
                         <v-card color="deep-orange darken-1" class="white--text">
                             <v-card-title primary-title>
                                 <div>{{ file.name }}</div>
@@ -33,6 +33,13 @@
                             </v-card-actions>
                         </v-card>
                     </v-flex>
+                <v-flex xs12 v-else>
+                    <v-card color="deep-orange darken-1" class="white--text">
+                        <v-card-title primary-title>
+                            <div>No files avaliable.</div>
+                        </v-card-title>
+                    </v-card>
+                </v-flex>
                 </v-layout>
             </v-container>
         </v-card>
