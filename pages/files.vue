@@ -26,7 +26,7 @@
                             </v-card-title>
                             <v-card-actions>
                                 <v-btn block dark color="green darken-1"
-                                      target="_blank" :href="'https://portal.solutionhost.co.uk/apps/storagefiles/' + $auth.state.user.client.id +'/_shared/' + file.name"
+                                      target="_blank" :href="'https://portal.solutionhost.co.uk' + file.folder + file.name"
                                 >Download Now &nbsp;<v-icon>cloud_download</v-icon></v-btn>
 
 
