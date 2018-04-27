@@ -14,8 +14,8 @@
                             completion status.<br>
                             If you need help at any point, please see the help documents for
                             guidance. or contact <strong>{{ this.$auth.state.user.client.name }}</strong> on
-                            <strong>{{ this.$auth.state.user.client.email }}</strong>, or via email at
-                            <strong>{{ this.$auth.state.user.client.phone }}</strong>
+                            <strong>{{ this.$auth.state.user.client.phone }}</strong>, or via email at
+                            <strong>{{ this.$auth.state.user.client.email }}</strong>
                         </div>
                     </div>
                 </v-card-title>
