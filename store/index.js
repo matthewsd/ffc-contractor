@@ -245,9 +245,9 @@ const createStore = () => {
         var sectorProgress = await this.$axios.get(`/work_sector_progresses/${param}`)
         let questions = await this.$axios.get(`/questions/answers/${sectorProgress.data.workSector.id}`)
         await questions.data.map((question) => {
-          question.dropOptions = dropOptions(question, state.auth.user.id)
+          question.dropOptions = dropOptions(question, state.auth.user.id, sectorProgress.data.workSector.id)
           question.sub_questions.map((sub) => {
-            sub.dropOptions = dropOptions(sub, state.auth.user.id)
+            sub.dropOptions = dropOptions(sub, state.auth.user.id, sectorProgress.data.workSector.id)
           })
         })
         sectorProgress.data.questions = questions.data
@@ -263,9 +263,9 @@ const createStore = () => {
       async GET_STANDARD_SECTOR ({commit, state}) {
         let questions = await this.$axios.get(`/standard/questions/answers/get`)
         await questions.data.map((question) => {
-          question.dropOptions = dropOptions(question, state.auth.user.id)
+          question.dropOptions = dropOptions(question, state.auth.user.id, null)
           question.sub_questions.map((sub) => {
-            sub.dropOptions = dropOptions(sub, state.auth.user.id)
+            sub.dropOptions = dropOptions(sub, state.auth.user.id, null)
           })
         })
         commit('SET_STANDARD_SECTOR', questions.data)
@@ -377,10 +377,10 @@ const createStore = () => {
   })
 }
 
-function dropOptions (question, contractor) {
+function dropOptions (question, contractor, sector) {
   var required = (question.answer_evidence_isRequired) ? ' * Required' : ''
   return {
-    url: `${process.env.UPLOAD_API_URL}/${question.client}/${contractor}`,
+    url: `${process.env.UPLOAD_API_URL}/${question.client}/${contractor}/${sector}`,
     maxFilesize: 25,
     method: 'POST',
     addRemoveLinks: true,
