@@ -147,8 +147,8 @@
         }
       },
       async uploadSuccess (response) {
-        console.log(response.xhr.response.FileName)
-        this.question.answer_evidence = response.xhr.response.FileName
+        console.log(response.xhr.response)
+        this.question.answer_evidence = response.name
         this.$store.commit('SET_BUTTON_STATE', false)
       },
       removeFile () {
