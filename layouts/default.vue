@@ -85,12 +85,8 @@
         </v-navigation-drawer>
         <v-toolbar dark fixed app :clipped-left="clipped" class="orange darken-2">
             <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
-            <v-btn
-                    icon
-                    @click.stop="miniVariant = !miniVariant"
-            >
-                <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-            </v-btn>
+            <v-icon v-if="!miniVariant && drawer" @click="miniVariant = !miniVariant">keyboard_arrow_left</v-icon>
+            <v-icon v-if="miniVariant && drawer" @click="miniVariant = !miniVariant">keyboard_arrow_right</v-icon>
             <v-toolbar-title>{{ this.$auth.state.user ? this.$auth.state.user.client.name : 'First for Contractors' }}</v-toolbar-title>
             <v-spacer></v-spacer>
             <div v-if="this.$auth.state.user" class="d-flex align-center" style="margin-left: auto">
