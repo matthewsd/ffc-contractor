@@ -147,7 +147,7 @@
         }
       },
       async uploadSuccess (response) {
-        console.log(response.xhr.response)
+        console.log(response.xhr.response.fileName)
         this.question.answer_evidence = response.name
         this.$store.commit('SET_BUTTON_STATE', false)
       },
