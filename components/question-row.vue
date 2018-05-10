@@ -147,8 +147,14 @@
         }
       },
       async uploadSuccess (response) {
-        console.log(response.xhr.response.FileName)
-        this.question.answer_evidence = response.xhr.response.FileName
+        console.log(JSON.parse(response.xhr.response))
+        let r = JSON.parse(response.xhr.response)
+        console.log(r.FileName)
+        if (r.FileName) {
+          this.question.answer_evidence = r.FileName
+        } else {
+          this.question.answer_evidence = response.name
+        }
         this.$store.commit('SET_BUTTON_STATE', false)
       },
       removeFile () {
