@@ -262,8 +262,8 @@
     },
     methods: {
       async submit () {
-        this.$store.dispatch('PUT_EMPLOYEE', this.employee)
-        this.$store.dispatch('PUT_CONTRACTOR', this.contractor)
+        await this.$store.dispatch('PUT_EMPLOYEE', this.employee)
+        await this.$store.dispatch('PUT_CONTRACTOR', this.contractor)
         await this.$store.dispatch('PUT_PROGRESS')
         this.$store.dispatch('GET_NAVIGATION')
         this.$store.commit('SET_ALERT', { message: 'Successfully saved your answers.', colour: 'green darken-2', active: true })
