@@ -10,7 +10,8 @@
                 <div>
                     <h3 class="headline mb-0">Files shared with you.</h3>
                     <div><strong>{{ $auth.state.user.client.name }}</strong> has shared the following files with you.
-                        These documents generally contain information your client feels will assist you in your tasks.</div>
+                        These documents generally contain information your client feels will assist you in your tasks.
+                    </div>
                 </div>
             </v-card-title>
             <v-container
@@ -26,20 +27,20 @@
                             </v-card-title>
                             <v-card-actions>
                                 <v-btn block dark color="green darken-1"
-                                      target="_blank" :href="'https://portal.solutionhost.co.uk' + file.folder + file.name"
-                                >Download Now &nbsp;<v-icon>cloud_download</v-icon></v-btn>
-
-
+                                       target="_blank"
+                                       :href="'https://portal.solutionhost.co.uk' + file.folder + file.name"
+                                >Download Now &nbsp;<v-icon>cloud_download</v-icon>
+                                </v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-flex>
-                <v-flex xs12 v-else>
-                    <v-card color="deep-orange darken-1" class="white--text">
-                        <v-card-title primary-title>
-                            <div>No files avaliable.</div>
-                        </v-card-title>
-                    </v-card>
-                </v-flex>
+                    <v-flex xs12 v-else>
+                        <v-card color="deep-orange darken-1" class="white--text">
+                            <v-card-title primary-title>
+                                <div>No files available.</div>
+                            </v-card-title>
+                        </v-card>
+                    </v-flex>
                 </v-layout>
             </v-container>
         </v-card>
@@ -47,7 +48,7 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  import {mapState} from 'vuex'
   import LoadingCircle from '~/components/loading-circle'
 
   export default {
@@ -55,7 +56,7 @@
     async asyncData (context) {
       await context.store.dispatch('GET_FILES')
     },
-    components: { LoadingCircle },
+    components: {LoadingCircle},
     computed: mapState(['files']),
     mounted: function () {
       this.loaded = true
