@@ -238,7 +238,7 @@ const createStore = () => {
         commit('SET_SECTORS_SORTED', obj)
       },
       async GET_WORK_SECTORS ({commit}) {
-        let {data} = await this.$axios.get(`/work_sector_progresses?isRetired=false&order[progress]=asc&order[approved]=asc`)
+        let {data} = await this.$axios.get(`/work_sector_progresses?isRetired=false&workSector.retired=false&order[progress]=asc&order[approved]=asc`)
         commit('SET_WORK_SECTORS', data['hydra:member'])
       },
       async GET_WORK_SECTOR ({commit, state}, param) {
