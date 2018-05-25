@@ -107,7 +107,7 @@
                         <v-toolbar-title>&nbsp;&nbsp;Inbox</v-toolbar-title>
                     </v-toolbar>
                     <v-list three-line v-if="notes.loaded">
-                        <template v-for="note in notes.data">
+                        <template v-for="note in notes.data" v-if="!note.hidden">
                             <v-list-tile
                                     avatar
                                     ripple
