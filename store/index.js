@@ -238,7 +238,7 @@ const createStore = () => {
         commit('SET_SECTORS_SORTED', obj)
       },
       async GET_WORK_SECTORS ({commit}) {
-        let {data} = await this.$axios.get(`/work_sector_progresses?isRetired=false&workSector.retired=false&order[progress]=asc&order[approved]=asc`)
+        let {data} = await this.$axios.get(`/work_sector_progresses?isRetired=false&workSector.retired=false&order[progress]=asc&order[approved]=asc&order[id]=asc`)
         commit('SET_WORK_SECTORS', data['hydra:member'])
       },
       async GET_WORK_SECTOR ({commit, state}, param) {
@@ -257,7 +257,7 @@ const createStore = () => {
         this.$axios.put('/sectors/questions/answers', data)
       },
       async GET_STATIC_SECTORS ({commit}) {
-        let {data} = await this.$axios.get(`/static_progresses?order[progress]=asc&order[approved]=asc`)
+        let {data} = await this.$axios.get(`/static_progresses?order[progress]=asc&order[approved]=asc&order[id]=asc`)
         commit('SET_STATIC_SECTORS', data['hydra:member'])
       },
       async GET_STANDARD_SECTOR ({commit, state}) {
