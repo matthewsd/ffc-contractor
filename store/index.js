@@ -194,8 +194,8 @@ const createStore = () => {
         commit('SET_NOTES', { loaded: true, data: data['hydra:member'] })
         state.unreadNotes = 0
         await data['hydra:member'].map((note) => {
-          if (!note.read) {
-            if(!note.private){
+          if(!note.private){
+            if (!note.read) {
               commit('INCREMENT_UNREAD_NOTES_COUNT')
             }
           }
