@@ -55,7 +55,7 @@
                                                     autocomplete
                                                     v-bind:items="jobtitles"
                                                     v-model="employee.jobtitle"
-                                                    label="Profession / Trade"
+                                                    label="Profession / Trade (Cannot be edited)"
                                                     item-text="name"
                                                     item-value="@id"
                                             ></v-select>
