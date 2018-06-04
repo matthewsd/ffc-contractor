@@ -195,7 +195,9 @@ const createStore = () => {
         state.unreadNotes = 0
         await data['hydra:member'].map((note) => {
           if (!note.read) {
-            commit('INCREMENT_UNREAD_NOTES_COUNT')
+            if(!note.private){
+              commit('INCREMENT_UNREAD_NOTES_COUNT')
+            }
           }
         })
       },
