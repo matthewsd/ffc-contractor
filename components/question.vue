@@ -1,7 +1,7 @@
 <template>
     <div>
     <p v-html="question.question"></p>
-        <template v-if="question.advice">
+        <template v-if="question.advice"> 
             <v-tooltip right>
                 <external-link :to="question.advice.url" :department="question.advice.department">{{ question.advice.message }}</external-link>
                 <a dark color="primary" slot="activator" target="_blank" v-bind:href="question.advice.url">{{ question.advice.message }}</a>
