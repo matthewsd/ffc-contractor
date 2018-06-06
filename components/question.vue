@@ -1,6 +1,6 @@
 <template>
     <div>
-    <p>{{ question.question }}</p>
+    <p v-html="question.question"></p>
         <template v-if="question.advice">
             <v-tooltip right>
                 <external-link :to="question.advice.url" :department="question.advice.department">{{ question.advice.message }}</external-link>
