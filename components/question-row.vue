@@ -97,11 +97,13 @@
                         </div>
                         <v-flex d-flex xs12 v-if="question.question_add_evidence == 1 && question.answer_evidence == null">
                             <vue-dropzone
+                                    v-if="question.question_add_evidence == 1"
                                     :ref='"dropzone" + ( subcount ? "-sub" : "") + question.question_id'
                                     :id='"dropzone" + ( subcount ? "-sub" : "") + question.question_id'
-                                    @vdropzone-complete="uploadSuccess"
-                                    @vdropzone-processing="processing"
+                                    v-on:vdropzone-complete="uploadSuccess"
+                                    v-on:vdropzone-processing="processing"
                                     @vdropzone-removed-file="removeFile"
+                                    v-on:vdropzone-mounted="loadFile('dropzone' + ( subcount ? '-sub' : '') + question.question_id, question)"
                                     :options='question.dropOptions'
                             >
                             </vue-dropzone>
@@ -146,24 +148,17 @@
     },
     computed: mapState(['helps']),
     methods: {
-      async loadFile (ref, question) {
-        if (ref && question) {
-          if (question.answer_evidence !== null && question.answer_evidence !== '') {
-            var file = {name: question.answer_evidence, size: 0}
-            var url = question.answer_evidence_url
-            await this.$refs[ref].manuallyAddFile(file, url)
-          }
-        } else {
-          console.log('ref or q unset')
-          console.log(`ref = ${ref}`)
+      loadFile: function (ref, question) {
+        if (question.answer_evidence !== null) {
+          var file = {name: question.answer_evidence}
+          var url = question.answer_evidence_url
+          this.$refs[ref].manuallyAddFile(file, url)
         }
       },
       async uploadSuccess (response) {
-        if (response) {
-          let r = JSON.parse(response.xhr.response)
-          this.question.answer_evidence = r.FileName
-          this.$store.commit('SET_BUTTON_STATE', false)
-        }
+        let r = JSON.parse(response.xhr.response)
+        this.question.answer_evidence = r.FileName
+        this.$store.commit('SET_BUTTON_STATE', false)
       },
       removeFile () {
         this.question.answer_evidence = null
