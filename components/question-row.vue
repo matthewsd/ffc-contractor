@@ -1,10 +1,9 @@
 <style>
-    .dz-image img {
+    .dz-image img{
         background-color: #ccc;
         min-width: 180px;
-        width: 100% !important;
+        width:100% !important;
     }
-
     .dropzone .dz-preview.dz-file-preview .dz-image {
         min-width: 180px !important;
     }
@@ -21,8 +20,7 @@
                             <v-flex xs12 md12 lg4>
                                 <p v-if="question.question_add_expiry == 1 && moment(question.answer_date_expires).format('YYYY-MM-DD') < moment().format('YYYY-MM-DD')"
                                 >
-                                    <v-icon color="red">warning</v-icon>
-                                    <strong>Answer has Expired</strong>
+                                    <v-icon color="red">warning</v-icon> <strong>Answer has Expired</strong>
                                 </p>
                                 <p>
                                     <strong>Q{{count + 1}}{{ subcount ? '.' + subcount : null }}: </strong>
@@ -80,23 +78,15 @@
                                                    locale="gb-gb"
                                                    scrollable>
                                         <v-spacer></v-spacer>
-                                        <v-btn flat color="primary" @click="question.date_picker_shown = false">Cancel
-                                        </v-btn>
-                                        <v-btn flat color="primary"
-                                               @click="$refs.question.date_picker_shown.save(question.answer_date_expires)">
-                                            OK
-                                        </v-btn>
+                                        <v-btn flat color="primary" @click="question.date_picker_shown = false">Cancel</v-btn>
+                                        <v-btn flat color="primary" @click="$refs.question.date_picker_shown.save(question.answer_date_expires)">OK</v-btn>
                                     </v-date-picker>
                                 </v-menu>
                             </v-flex>
                         </v-layout>
                     </v-flex>
                     <v-flex d-flex xs12 md4 lg2>
-                        <div v-if="question.question_add_evidence == 1 && question.answer_evidence != null">
-                            <a target="_blank" :href="question.answer_evidence_url">{{ question.answer_evidence }}</a>
-                            <v-btn outline flat color="orange" @click.stop="question.answer_evidence = null">Remove <v-icon>delete</v-icon></v-btn>
-                        </div>
-                        <v-flex d-flex xs12 v-if="question.question_add_evidence == 1 && question.answer_evidence == null">
+                        <v-flex d-flex xs12>
                             <vue-dropzone
                                     v-if="question.question_add_evidence == 1"
                                     :ref='"dropzone" + ( subcount ? "-sub" : "") + question.question_id'
@@ -120,12 +110,12 @@
   import vue2Dropzone from 'vue2-dropzone'
   import 'vue2-dropzone/dist/vue2Dropzone.css'
   import Question from '~/components/question'
-  import {mapState} from 'vuex'
+  import { mapState } from 'vuex'
   import moment from 'moment'
 
   export default {
     props: {
-      question: {type: Object},
+      question: { type: Object },
       subcount: 0,
       count: 0
     },
@@ -139,9 +129,9 @@
       menu: false,
       dateFormatted: null,
       yesnona_items: [
-        {text: 'Yes', value: 'yes'},
-        {text: 'No', value: 'no'},
-        {text: 'N.A', value: 'na'}
+        { text: 'Yes', value: 'yes' },
+        { text: 'No', value: 'no' },
+        { text: 'N.A', value: 'na' }
       ]
     }),
     async asyncData (context) {
@@ -157,12 +147,19 @@
         }
       },
       async uploadSuccess (response) {
+        console.log(JSON.parse(response.xhr.response))
         let r = JSON.parse(response.xhr.response)
-        this.question.answer_evidence = r.FileName
+        console.log(r.FileName)
+        if (r.FileName) {
+          this.question.answer_evidence = r.FileName
+        } else {
+          this.question.answer_evidence = response.name
+        }
         this.$store.commit('SET_BUTTON_STATE', false)
       },
       removeFile () {
         this.question.answer_evidence = null
+        this.question.current_score--
       },
       processing () {
         this.$store.commit('SET_BUTTON_STATE', true)
