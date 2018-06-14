@@ -87,15 +87,14 @@
                     </v-flex>
                     <v-flex d-flex xs12 md4 lg2>
 
-                        <v-flex d-flex xs12>
-                            <p>Upload tempoarily unavaliable. Maintainence in progress.</p>
+                        <v-flex d-flex xs12 v-if="question.question_add_evidence == 1 && question.answer_evidence != null">
                             <p>
                                 <a target="_blank" v-if="question.question_add_evidence == 1 && question.answer_evidence" :href="question.answer_evidence_url" v-html="question.answer_evidence"></a>
                             </p>
+                            <v-btn flat outline color="orange" @click="question.answer_evidence = null">Remove</v-btn>
                         </v-flex>
-                        <v-flex d-flex xs12>
+                        <v-flex d-flex xs12 v-if="question.question_add_evidence == 1 && question.answer_evidence == null">
                             <vue-dropzone
-                                    v-if="question.question_add_evidence == 1"
                                     :ref='"dropzone" + ( subcount ? "-sub" : "") + question.question_id'
                                     :id='"dropzone" + ( subcount ? "-sub" : "") + question.question_id'
                                     @vdropzone-complete="uploadSuccess"
