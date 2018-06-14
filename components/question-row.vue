@@ -100,7 +100,6 @@
                                     @vdropzone-complete="uploadSuccess"
                                     @vdropzone-processing="processing"
                                     @vdropzone-removed-file="removeFile"
-                                    @vdropzone-mounted="loadFile('dropzone' + ( subcount ? '-sub' : '') + question.question_id, question)"
                                     :options='question.dropOptions'
                             >
                             </vue-dropzone>
