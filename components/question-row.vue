@@ -147,19 +147,22 @@
         }
       },
       async uploadSuccess (response) {
-        console.log(JSON.parse(response.xhr.response))
-        let r = JSON.parse(response.xhr.response)
-        console.log(r.FileName)
-        if (r.FileName) {
-          this.question.answer_evidence = r.FileName
+        if (response) {
+          if (response.xhr) {
+            if (response.xhr.response) {
+              let res = JSON.parse(response.xhr.response)
+              this.question.answer_evidence = res.FileName
+            }
+          } else {
+            this.question.answer_evidence = response.name
+          }
         } else {
-          this.question.answer_evidence = response.name
+          console.log('Response not set.')
         }
         this.$store.commit('SET_BUTTON_STATE', false)
       },
       removeFile () {
         this.question.answer_evidence = null
-        this.question.current_score--
       },
       processing () {
         this.$store.commit('SET_BUTTON_STATE', true)
