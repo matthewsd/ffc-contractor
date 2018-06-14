@@ -87,6 +87,10 @@
                     </v-flex>
                     <v-flex d-flex xs12 md4 lg2>
                         <v-flex d-flex xs12>
+                            <div v-if="question.question_add_evidence == 1 && question.answer_evidence !== null">
+                            <a target="_blank" :href="question.answer_evidence_url">{{ question.answer_evidence }}</a>
+                                <br>
+                            </div>
                             <vue-dropzone
                                     v-if="question.question_add_evidence == 1"
                                     :ref='"dropzone" + ( subcount ? "-sub" : "") + question.question_id'
