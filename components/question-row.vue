@@ -86,11 +86,11 @@
                         </v-layout>
                     </v-flex>
                     <v-flex d-flex xs12 md4 lg2>
+
                         <v-flex d-flex xs12>
-                            <div v-if="question.question_add_evidence == 1 && question.answer_evidence !== null">
-                            <a target="_blank" :href="question.answer_evidence_url">{{ question.answer_evidence }}</a>
-                                <br>
-                            </div>
+                            <a target="_blank" v-if="question.question_add_evidence == 1 && question.answer_evidence" :href="question.answer_evidence_url" v-html="question.answer_evidence"></a>
+                        </v-flex>
+                        <v-flex d-flex xs12>
                             <vue-dropzone
                                     v-if="question.question_add_evidence == 1"
                                     :ref='"dropzone" + ( subcount ? "-sub" : "") + question.question_id'
@@ -151,9 +151,11 @@
         }
       },
       async uploadSuccess (response) {
-        let r = JSON.parse(response.xhr.response)
-        this.question.answer_evidence = r.FileName
-        this.$store.commit('SET_BUTTON_STATE', false)
+        if (response) {
+          let r = JSON.parse(response.xhr.response)
+          this.question.answer_evidence = r.FileName
+          this.$store.commit('SET_BUTTON_STATE', false)
+        }
       },
       removeFile () {
         this.question.answer_evidence = null
