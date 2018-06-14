@@ -88,21 +88,22 @@
                     <v-flex d-flex xs12 md4 lg2>
 
                         <v-flex d-flex xs12>
+                            <p>Upload tempoarily unavaliable. Maintainence in progress.</p>
                             <a target="_blank" v-if="question.question_add_evidence == 1 && question.answer_evidence" :href="question.answer_evidence_url" v-html="question.answer_evidence"></a>
                         </v-flex>
-                        <v-flex d-flex xs12>
-                            <vue-dropzone
-                                    v-if="question.question_add_evidence == 1"
-                                    :ref='"dropzone" + ( subcount ? "-sub" : "") + question.question_id'
-                                    :id='"dropzone" + ( subcount ? "-sub" : "") + question.question_id'
-                                    v-on:vdropzone-complete="uploadSuccess"
-                                    v-on:vdropzone-processing="processing"
-                                    @vdropzone-removed-file="removeFile"
-                                    v-on:vdropzone-mounted="loadFile('dropzone' + ( subcount ? '-sub' : '') + question.question_id, question)"
-                                    :options='question.dropOptions'
-                            >
-                            </vue-dropzone>
-                        </v-flex>
+                        <!--<v-flex d-flex xs12>-->
+                            <!--<vue-dropzone-->
+                                    <!--v-if="question.question_add_evidence == 1"-->
+                                    <!--:ref='"dropzone" + ( subcount ? "-sub" : "") + question.question_id'-->
+                                    <!--:id='"dropzone" + ( subcount ? "-sub" : "") + question.question_id'-->
+                                    <!--v-on:vdropzone-complete="uploadSuccess"-->
+                                    <!--v-on:vdropzone-processing="processing"-->
+                                    <!--@vdropzone-removed-file="removeFile"-->
+                                    <!--v-on:vdropzone-mounted="loadFile('dropzone' + ( subcount ? '-sub' : '') + question.question_id, question)"-->
+                                    <!--:options='question.dropOptions'-->
+                            <!--&gt;-->
+                            <!--</vue-dropzone>-->
+                        <!--</v-flex>-->
                     </v-flex>
                 </v-layout>
             </v-card-text>
