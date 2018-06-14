@@ -101,7 +101,7 @@
                                     @vdropzone-complete="uploadSuccess"
                                     @vdropzone-processing="processing"
                                     @vdropzone-removed-file="removeFile"
-
+                                    @vdropzone-mounted="loadFile('dropzone' + ( subcount ? '-sub' : '') + question.question_id, question)"
                                     :options='question.dropOptions'
                             >
                             </vue-dropzone>
@@ -147,10 +147,15 @@
     computed: mapState(['helps']),
     methods: {
       async loadFile (ref, question) {
-        if (question.answer_evidence !== null) {
-          var file = {name: question.answer_evidence}
-          var url = question.answer_evidence_url
-          await this.$refs[ref].manuallyAddFile(file, url)
+        if (ref && question) {
+          if (question.answer_evidence !== null && question.answer_evidence !== '') {
+            var file = {name: question.answer_evidence, size: 0}
+            var url = question.answer_evidence_url
+            await this.$refs[ref].manuallyAddFile(file, url)
+          }
+        } else {
+          console.log('ref or q unset')
+          console.log(`ref = ${ref}`)
         }
       },
       async uploadSuccess (response) {
