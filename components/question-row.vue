@@ -86,7 +86,9 @@
                         </v-layout>
                     </v-flex>
                     <v-flex d-flex xs12 md4 lg2>
-
+                        <v-flex d-flex xs12 v-if="question.question_add_evidence == 0">
+                            No evidence required.
+                        </v-flex>
                         <v-flex d-flex xs12 v-if="question.question_add_evidence == 1 && question.answer_evidence != null">
                             <p>
                                 <a target="_blank" v-if="question.question_add_evidence == 1 && question.answer_evidence" :href="question.answer_evidence_url" v-html="question.answer_evidence"></a>
