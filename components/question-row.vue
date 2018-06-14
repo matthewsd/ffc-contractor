@@ -85,7 +85,7 @@
                             </v-flex>
                         </v-layout>
                     </v-flex>
-                    <div d-flex xs12 md4 lg2>
+                    <v-flex d-flex xs12 md4 lg2>
                         <div v-if="question.question_add_evidence == 0">
                             No evidence required.
                         </div>
