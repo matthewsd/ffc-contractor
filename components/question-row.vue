@@ -85,16 +85,16 @@
                             </v-flex>
                         </v-layout>
                     </v-flex>
-                    <v-flex d-flex xs12 md4 lg2>
-                        <v-flex d-flex xs12 v-if="question.question_add_evidence == 0">
+                    <div d-flex xs12 md4 lg2>
+                        <div v-if="question.question_add_evidence == 0">
                             No evidence required.
-                        </v-flex>
-                        <v-flex d-flex xs12 v-if="question.question_add_evidence == 1 && question.answer_evidence != null">
+                        </div>
+                        <div v-if="question.question_add_evidence == 1 && question.answer_evidence != null" style="text-align:center;">
                             <p>
                                 <a target="_blank" v-if="question.question_add_evidence == 1 && question.answer_evidence" :href="question.answer_evidence_url" v-html="question.answer_evidence"></a>
                             </p>
                             <v-btn flat outline color="orange" @click="question.answer_evidence = null">Remove</v-btn>
-                        </v-flex>
+                        </div>
                         <v-flex d-flex xs12 v-if="question.question_add_evidence == 1 && question.answer_evidence == null">
                             <vue-dropzone
                                     :ref='"dropzone" + ( subcount ? "-sub" : "") + question.question_id'
