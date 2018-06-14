@@ -139,11 +139,11 @@
     },
     computed: mapState(['helps']),
     methods: {
-      loadFile: function (ref, question) {
+      async loadFile (ref, question) {
         if (question.answer_evidence !== null) {
           var file = {name: question.answer_evidence}
           var url = question.answer_evidence_url
-          this.$refs[ref].manuallyAddFile(file, url)
+          await this.$refs[ref].manuallyAddFile(file, url)
         }
       },
       async uploadSuccess (response) {
