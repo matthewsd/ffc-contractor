@@ -85,20 +85,18 @@
                             </v-flex>
                         </v-layout>
                     </v-flex>
-                    <v-flex d-flex xs12 md4 lg2>
-                        <v-flex d-flex xs12>
+                    <v-flex xs12 md4 lg2 style="text-align:center;">
+                        <v-btn outline flat small color="orange" v-if="question.answer_evidence" target="_blank" :href="question.answer_evidence_url">{{ question.answer_evidence }} &nbsp; <v-icon>visibility</v-icon></v-btn>
                             <vue-dropzone
                                     v-if="question.question_add_evidence == 1"
-                                    :ref='"dropzone" + ( subcount ? "-sub" : "") + question.question_id'
-                                    :id='"dropzone" + ( subcount ? "-sub" : "") + question.question_id'
+                                    :ref='"dropzone" + ( subcount ? "sub" : null) + question.question_id'
+                                    :id='"dropzone" + ( subcount ? "sub" : null) + question.question_id'
                                     v-on:vdropzone-complete="uploadSuccess"
                                     v-on:vdropzone-processing="processing"
                                     @vdropzone-removed-file="removeFile"
-                                    v-on:vdropzone-mounted="loadFile('dropzone' + ( subcount ? '-sub' : '') + question.question_id, question)"
                                     :options='question.dropOptions'
                             >
                             </vue-dropzone>
-                        </v-flex>
                     </v-flex>
                 </v-layout>
             </v-card-text>
@@ -151,7 +149,7 @@
           if (response.xhr) {
             if (response.xhr.response) {
               let res = JSON.parse(response.xhr.response)
-              this.question.answer_evidence = res.FileName
+              this.question.answer_evidence = res.FileName[0]
             }
           } else {
             this.question.answer_evidence = response.name

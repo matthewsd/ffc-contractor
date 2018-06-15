@@ -386,7 +386,7 @@ function dropOptions (question, contractor, sector) {
     maxFilesize: 25,
     method: 'POST',
     addRemoveLinks: true,
-    uploadMultiple: false,
+    uploadMultiple: true,
     maxFiles: 1,
     headers: {
       'Access-Control-Request-Method': 'POST'
