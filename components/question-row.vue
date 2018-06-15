@@ -149,7 +149,7 @@
           if (response.xhr) {
             if (response.xhr.response) {
               let res = JSON.parse(response.xhr.response)
-              this.question.answer_evidence = res.FileName[0]
+              this.question.answer_evidence = res.FileName
             }
           } else {
             this.question.answer_evidence = response.name
