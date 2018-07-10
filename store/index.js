@@ -149,7 +149,11 @@ const createStore = () => {
         await this.$axios.put(contractor['@id'], contractor)
       },
       async GET_EMPLOYEE ({commit, state}) {
-        const {data} = await this.$axios.get(`/employees/${state.auth.user.id}`)
+        let {data} = await this.$axios.get(`/employees/${state.auth.user.id}`)
+        let job = await this.$axios.get(data.jobtitle)
+        data.jobtitle = job.data
+        // data['hydra:member'].jobtitle = await this.$axios.get(data['hydra:member'].jobtitle)
+        // data['hydra:member'].jobtitle = job.data
         commit('SET_EMPLOYEE', data)
       },
       async PUT_EMPLOYEE ({commit, state}, employee) {
