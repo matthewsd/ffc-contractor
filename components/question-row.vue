@@ -20,7 +20,7 @@
                             <v-flex xs12 md12 lg4>
                                 <p v-if="question.question_add_expiry == 1 && moment(question.answer_date_expires).format('YYYY-MM-DD') < moment().format('YYYY-MM-DD')"
                                 >
-                                    <v-icon color="red">warning</v-icon> <strong>Answer has Expired</strong>
+                                    <v-icon color="red">warning</v-icon>&nbsp;<strong>Answer has Expired</strong>
                                 </p>
                                 <p>
                                     <strong>Q{{count + 1}}{{ subcount ? '.' + subcount : null }}: </strong>
@@ -28,15 +28,14 @@
                                 </p>
                             </v-flex>
                             <v-flex xs12 md12 lg4>
-                                <v-text-field
+                                <v-textarea
                                         v-if="question.answer_type == 'freetext' || question.answer_type == 'textarea'"
                                         :label='"Answer" + ((question.answer_isRequired == 1)? "*" : "")'
                                         v-model="question.answer"
-                                        multi-line
                                         rows="3"
                                         :counter="255"
                                 >
-                                </v-text-field>
+                                </v-textarea>
                                 <v-text-field
                                         v-if="question.answer_type == 'textbox'"
                                         :label='"Answer" + ((question.answer_isRequired == 1)? "*" : "")'
@@ -53,35 +52,59 @@
                                 ></v-select>
                             </v-flex>
                             <v-flex xs12 md12 lg4>
-
-                                <v-menu v-if="question.question_add_expiry == 1"
-                                        ref="question.date_picker_shown"
-                                        lazy
+                                <v-menu
+                                        v-if="question.question_add_expiry == 1"
+                                        ref="menu"
                                         :close-on-content-click="false"
-                                        v-model="question.date_picker_shown"
-                                        transition="scale-transition"
-                                        offset-y
-                                        full-width
-                                        :nudge-left="18"
-                                        min-width="290px"
+                                        v-model="menu"
+                                        :nudge-right="40"
                                         :return-value.sync="question.answer_date_expires"
+                                        lazy
+                                        transition="scale-transition"
+                                        full-width
+                                        min-width="290px"
                                 >
                                     <v-text-field
                                             slot="activator"
-                                            :label='"Date Expires" + ((question.answer_expiry_isRequired == 1)? "*" : "")'
                                             v-model="question.answer_date_expires"
+                                            :label='"Date Expires" + ((question.answer_expiry_isRequired == 1)? "*" : "")'
                                             prepend-icon="event"
                                             readonly
                                     ></v-text-field>
-                                    <v-date-picker v-model="question.answer_date_expires"
-                                                   color="orange darken-2"
-                                                   locale="gb-gb"
-                                                   scrollable>
+                                    <v-date-picker v-model="question.answer_date_expires" color="orange darken-2" scrollable>
                                         <v-spacer></v-spacer>
-                                        <v-btn flat color="primary" @click="question.date_picker_shown = false">Cancel</v-btn>
-                                        <v-btn flat color="primary" @click="$refs.question.date_picker_shown.save(question.answer_date_expires)">OK</v-btn>
+                                        <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
+                                        <v-btn flat color="primary" @click="$refs.menu.save(question.answer_date_expires)">OK</v-btn>
                                     </v-date-picker>
                                 </v-menu>
+                                <!--<v-menu v-if="question.question_add_expiry == 1"-->
+                                        <!--ref="question.date_picker_shown"-->
+                                        <!--lazy-->
+                                        <!--:close-on-content-click="false"-->
+                                        <!--v-model="question.date_picker_shown"-->
+                                        <!--transition="scale-transition"-->
+                                        <!--offset-y-->
+                                        <!--full-width-->
+                                        <!--:nudge-left="18"-->
+                                        <!--min-width="290px"-->
+                                        <!--:return-value.sync="question.answer_date_expires"-->
+                                <!--&gt;-->
+                                    <!--<v-text-field-->
+                                            <!--slot="activator"-->
+                                            <!--:label='"Date Expires" + ((question.answer_expiry_isRequired == 1)? "*" : "")'-->
+                                            <!--v-model="question.answer_date_expires"-->
+                                            <!--prepend-icon="event"-->
+                                            <!--readonly-->
+                                    <!--&gt;</v-text-field>-->
+                                    <!--<v-date-picker v-model="question.answer_date_expires"-->
+                                                   <!--color="orange darken-2"-->
+                                                   <!--locale="gb-gb"-->
+                                                   <!--scrollable>-->
+                                        <!--<v-spacer></v-spacer>-->
+                                        <!--<v-btn flat color="primary" @click="question.date_picker_shown = false">Cancel</v-btn>-->
+                                        <!--<v-btn flat color="primary" @click="$refs.question.date_picker_shown.save(question.answer_date_expires)">OK</v-btn>-->
+                                    <!--</v-date-picker>-->
+                                <!--</v-menu>-->
                             </v-flex>
                         </v-layout>
                     </v-flex>
@@ -113,7 +136,7 @@
 
   export default {
     props: {
-      question: { type: Object },
+      question: Object,
       subcount: 0,
       count: 0
     },
