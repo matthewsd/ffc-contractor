@@ -194,7 +194,7 @@ const createStore = () => {
         commit('SET_NOTES', { loaded: true, data: data['hydra:member'] })
         state.unreadNotes = 0
         await data['hydra:member'].map((note) => {
-          if(!note.hidden){
+          if (!note.hidden) {
             if (!note.read) {
               commit('INCREMENT_UNREAD_NOTES_COUNT')
             }
@@ -366,8 +366,6 @@ const createStore = () => {
       },
       async GET_JOBTITLE_NAME ({state}, jobtitle) {
         if (jobtitle) {
-          console.log(jobtitle)
-          console.log('got new meth')
           let jobtitleReq = await this.$axios.get(jobtitle)
           console.log(jobtitleReq.data.name)
           return jobtitleReq.data.name

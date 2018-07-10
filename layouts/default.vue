@@ -3,21 +3,27 @@
         height: 100%;
         margin-top: -10px;
     }
+
     .toolbar--fixed {
         z-index: 1000;
     }
+
     .navigation-drawer {
         z-index: 1001;
     }
+
     .menuable__content__active {
         z-index: 1000 !important;
     }
+
     .vue-dropzone {
         max-width: 100%;
     }
+
     .dz-preview, .dz-image {
         width: 100%;
     }
+
     .dropzone .dz-preview {
         margin: 0 auto;
     }
@@ -38,19 +44,15 @@
                     <img src="~/static/FFC-Logo.svg" alt="no image" width="100%">
                 </v-list-tile-title>
                 <template v-for="item in navigation">
-                    <v-list-group v-if="item.children" v-model="item.model" no-action>
-                        <v-list-tile slot="item" @click="">
-                            <v-list-tile-action>
-                                <v-icon>{{ item.icon }}</v-icon>
-                            </v-list-tile-action>
+
+                    <v-list-group v-if="item.children" v-model="item.model" :prepend-icon="item.icon"
+                                  append-icon="keyboard_arrow_down">
+                        <v-list-tile slot="activator">
                             <v-list-tile-content>
                                 <v-list-tile-title>
                                     {{ item.title }}
                                 </v-list-tile-title>
                             </v-list-tile-content>
-                            <v-list-tile-action>
-                                <v-icon>keyboard_arrow_down</v-icon>
-                            </v-list-tile-action>
                         </v-list-tile>
                         <template v-for="(children, ci) in item.children">
                             <v-list-tile
@@ -87,7 +89,8 @@
             <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
             <v-icon v-if="!miniVariant && drawer" @click="miniVariant = !miniVariant">keyboard_arrow_left</v-icon>
             <v-icon v-if="miniVariant && drawer" @click="miniVariant = !miniVariant">keyboard_arrow_right</v-icon>
-            <v-toolbar-title>{{ this.$auth.state.user ? this.$auth.state.user.client.name : 'First for Contractors' }}</v-toolbar-title>
+            <v-toolbar-title>{{ this.$auth.state.user ? this.$auth.state.user.client.name : 'First for Contractors' }}
+            </v-toolbar-title>
             <v-spacer></v-spacer>
             <div v-if="this.$auth.state.user" class="d-flex align-center" style="margin-left: auto">
                 <v-tooltip left>
