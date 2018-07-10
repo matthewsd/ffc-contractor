@@ -53,9 +53,9 @@
     },
     methods: {
       async submit () {
-        this.$store.dispatch('PUT_STANDARD_SECTOR', this.standardSector)
-        this.$store.commit('SET_ALERT', { message: 'Successfully saved your answers.', colour: 'green darken-2', active: true })
-        this.$store.dispatch('GET_NAVIGATION')
+        await this.$store.dispatch('PUT_STANDARD_SECTOR', this.standardSector)
+        await this.$store.commit('SET_ALERT', { message: 'Successfully saved your answers.', colour: 'green darken-2', active: true })
+        await this.$store.dispatch('GET_NAVIGATION')
         this.$router.replace({ path: '/' })
       }
     }

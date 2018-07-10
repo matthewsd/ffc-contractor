@@ -152,8 +152,6 @@ const createStore = () => {
         let {data} = await this.$axios.get(`/employees/${state.auth.user.id}`)
         let job = await this.$axios.get(data.jobtitle)
         data.jobtitle = job.data
-        // data['hydra:member'].jobtitle = await this.$axios.get(data['hydra:member'].jobtitle)
-        // data['hydra:member'].jobtitle = job.data
         commit('SET_EMPLOYEE', data)
       },
       async PUT_EMPLOYEE ({commit, state}, employee) {
@@ -260,7 +258,7 @@ const createStore = () => {
         commit('SET_WORK_SECTOR', sectorProgress.data)
       },
       async PUT_WORK_SECTOR ({commit, state}, data) {
-        this.$axios.put('/sectors/questions/answers', data)
+        await this.$axios.put('/sectors/questions/answers', data)
       },
       async GET_STATIC_SECTORS ({commit}) {
         let {data} = await this.$axios.get(`/static_progresses?order[progress]=asc&order[approved]=asc&order[id]=asc`)
@@ -277,7 +275,7 @@ const createStore = () => {
         commit('SET_STANDARD_SECTOR', questions.data)
       },
       async PUT_STANDARD_SECTOR ({commit, state}, data) {
-        this.$axios.put('/standard/questions/answers/put', data)
+        await this.$axios.put('/standard/questions/answers/put', data)
       },
       async RESET_EVERYTHING ({commit}) {
         commit('SET_STATIC_SECTORS', [])

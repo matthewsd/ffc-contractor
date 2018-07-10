@@ -113,7 +113,7 @@
                 <nuxt/>
             </v-container>
         </v-content>
-        <v-footer :fixed="fixed" app class="orange darken-1">
+        <v-footer clipped class="orange darken-1">
             <span dark style="color:white;">Solution Host &copy; {{ moment().format('YYYY') }}</span>
         </v-footer>
         <v-snackbar
