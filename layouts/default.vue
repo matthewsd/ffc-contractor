@@ -72,7 +72,7 @@
                             </v-list-tile>
                         </template>
                     </v-list-group>
-                    <v-list-tile v-else :key="item.to" exact :to="item.to" @click="drawer = !drawer">
+                    <v-list-tile v-else :key="item.to" exact :to="item.to" @click="">
                         <v-list-tile-action>
                             <v-icon>{{ item.icon }}</v-icon>
                         </v-list-tile-action>
