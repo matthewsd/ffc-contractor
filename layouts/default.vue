@@ -141,7 +141,7 @@
     data () {
       return {
         clipped: false,
-        drawer: true,
+        drawer: null,
         fixed: false,
         miniVariant: false,
         right: true,
@@ -150,6 +150,7 @@
     },
     computed: mapState(['navigation', 'alert']),
     mounted: function () {
+      this.drawer = !(window.innerWidth < 600)
       this.$store.dispatch('GET_NAVIGATION')
       if (this.$auth.state.user) {
         this.$store.dispatch('GET_CONTRACTOR')
