@@ -27,7 +27,7 @@
                             </v-card-title>
                             <v-card-actions>
                                 <v-btn block dark color="green darken-1"
-                                       target="_blank"
+                                       download
                                        :href="'https://portal.solutionhost.co.uk' + file.folder + file.name"
                                 >Download Now &nbsp;<v-icon>cloud_download</v-icon>
                                 </v-btn>
