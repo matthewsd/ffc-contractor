@@ -109,7 +109,7 @@
                         </v-layout>
                     </v-flex>
                     <v-flex xs12 md4 lg2 style="text-align:center;">
-                        <v-btn outline flat small color="orange" v-if="question.answer_evidence" target="_blank" :href="question.answer_evidence_url">{{ question.answer_evidence }} &nbsp; <v-icon>visibility</v-icon></v-btn>
+                        <v-btn outline flat small color="orange" v-if="question.answer_evidence" download target="_blank" :href="question.answer_evidence_url">{{ question.answer_evidence }} &nbsp; <v-icon>visibility</v-icon></v-btn>
                             <vue-dropzone
                                     v-if="question.question_add_evidence == 1"
                                     :ref='"dropzone" + ( subcount ? "sub" : null) + question.question_id'
