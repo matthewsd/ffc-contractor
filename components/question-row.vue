@@ -48,7 +48,7 @@
                                         v-model="question.answer"
                                         :items="yesnona_items"
                                         :label='"Please select answer" + ((question.answer_isRequired == 1)? "*" : "")'
-                                        bottom
+                                        :menu-props="bottom"
                                 ></v-select>
                             </v-flex>
                             <v-flex xs12 md12 lg4>
