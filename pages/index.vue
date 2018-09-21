@@ -8,14 +8,14 @@
             <v-card>
                 <v-card-title primary-title>
                     <div>
-                        <h3 class="headline mb-0">Welcome back {{ this.$auth.state.user.forename }}</h3>
+                        <h3 class="headline mb-0">Welcome back {{ $auth.user.forename }}</h3>
                         <div>Below is a list of your current PQQ questionnaires for
-                            {{ this.$auth.state.user.client.name }}, and their
+                            {{ $auth.user.client.name }}, and their
                             completion status.<br>
                             If you need help at any point, please see the help documents for
-                            guidance. or contact <strong>{{ this.$auth.state.user.client.name }}</strong> on
-                            <strong>{{ this.$auth.state.user.client.phone }}</strong>, or via email at
-                            <strong>{{ this.$auth.state.user.client.email }}</strong>
+                            guidance. or contact <strong>{{ $auth.user.client.name }}</strong> on
+                            <strong>{{ $auth.user.client.phone }}</strong>, or via email at
+                            <strong>{{ $auth.user.client.email }}</strong>
                         </div>
                     </div>
                 </v-card-title>

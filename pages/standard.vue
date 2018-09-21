@@ -22,7 +22,7 @@
                              :subcount="si + 1"></QuestionRow>
             </v-layout>
             <v-spacer></v-spacer>
-            <v-btn color="success" style='float:right' @click="submit">Save Answers <v-icon>done</v-icon></v-btn>
+            <v-btn color="success" style='float:right' :loading="loading" :disabled="disabled" @click="submit">Save Answers <v-icon>done</v-icon></v-btn>
         </v-form>
     </v-container>
 </template>
@@ -46,13 +46,17 @@
     data: () => ({
       menu: false,
       loaded: false,
-      dateFormatted: null
+      dateFormatted: null,
+      loading: false,
+      disabled: false
     }),
     mounted: function () {
       this.loaded = true
     },
     methods: {
       async submit () {
+        this.disabled = true
+        this.loading = true
         await this.$store.dispatch('PUT_STANDARD_SECTOR', this.standardSector)
         await this.$store.commit('SET_ALERT', { message: 'Successfully saved your answers.', colour: 'green darken-2', active: true })
         await this.$store.dispatch('GET_NAVIGATION')
