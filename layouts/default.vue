@@ -89,22 +89,22 @@
             <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
             <v-icon v-if="!miniVariant && drawer" @click="miniVariant = !miniVariant">keyboard_arrow_left</v-icon>
             <v-icon v-if="miniVariant && drawer" @click="miniVariant = !miniVariant">keyboard_arrow_right</v-icon>
-            <v-toolbar-title>{{ this.$auth.state.user ? this.$auth.state.user.client.name : 'First for Contractors' }}
+            <v-toolbar-title>{{ $auth.user ? $auth.user.client.name : 'First for Contractors' }}
             </v-toolbar-title>
             <v-spacer></v-spacer>
-            <div v-if="this.$auth.state.user" class="d-flex align-center" style="margin-left: auto">
+            <div v-if="$auth.user" class="d-flex align-center" style="margin-left: auto">
                 <v-tooltip left>
-                    <v-btn icon :href="'tel:' + this.$auth.state.user.client.phone" slot="activator">
+                    <v-btn icon :href="'tel:' + $auth.user.client.phone" slot="activator">
                         <v-icon>phone</v-icon>
                     </v-btn>
-                    <span>Contact {{ this.$auth.state.user.client.name }} on <strong>{{ this.$auth.state.user.client.phone }}</strong></span>
+                    <span>Contact {{ $auth.user.client.name }} on <strong>{{ $auth.user.client.phone }}</strong></span>
                 </v-tooltip>
                 <v-tooltip left>
-                    <v-btn icon :href="'mailto:' + this.$auth.state.user.client.email +'?subject=I need help with FFC'"
+                    <v-btn icon :href="'mailto:' + this.$auth.user.client.email +'?subject=I need help with FFC'"
                            slot="activator">
                         <v-icon>mail</v-icon>
                     </v-btn>
-                    <span>Email {{ this.$auth.state.user.client.name }} on <strong>{{ this.$auth.state.user.client.email }}</strong></span>
+                    <span>Email {{ $auth.user.client.name }} on <strong>{{ $auth.user.client.email }}</strong></span>
                 </v-tooltip>
             </div>
         </v-toolbar>
@@ -152,7 +152,7 @@
     mounted: function () {
       this.drawer = !(window.innerWidth < 600)
       this.$store.dispatch('GET_NAVIGATION')
-      if (this.$auth.state.user) {
+      if (this.$auth.user) {
         this.$store.dispatch('GET_CONTRACTOR')
         this.$store.dispatch('GET_EMPLOYEE')
       }

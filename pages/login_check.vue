@@ -20,14 +20,14 @@
     methods: {
       async recMessage (event) {
         if (event.data.target === 'check_user') {
-          if (this.$auth.state.loggedIn) {
-            event.source.postMessage({loggedIn: true, data: this.$auth.state.user}, event.origin)
+          if (this.$auth.loggedIn) {
+            event.source.postMessage({loggedIn: true, data: this.$auth.user}, event.origin)
           } else {
             event.source.postMessage({loggedIn: false}, event.origin)
           }
         } else if (event.data.target === 'logout_user') {
           await this.$auth.logout()
-          event.source.postMessage({loggedOut: true, status: 'success', data: this.$auth.state}, event.origin)
+          event.source.postMessage({loggedOut: true, status: 'success', data: this.$auth.$state}, event.origin)
         } else if (event.data.target === 'login_user') {
           if (!event.data.data.username) {
             event.source.postMessage({

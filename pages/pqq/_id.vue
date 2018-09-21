@@ -16,7 +16,7 @@
                              :count="i"
                              :subcount="si + 1"></QuestionRow>
             </v-layout>
-            <v-btn color="success" style='float:right' :disabled="buttonIsDisabled"
+            <v-btn color="success" style='float:right' :loading="loading" :disabled="buttonIsDisabled"
                     @click="submit">Save Answers <v-icon>done</v-icon></v-btn>
         </v-form>
         <!--</v-container>-->
@@ -32,7 +32,9 @@
     middleware: 'auth',
     data () {
       return {
-        loaded: false
+        loaded: false,
+        loading: false,
+        buttonIsDisabled: false
       }
     },
     mounted: function () {
@@ -49,6 +51,7 @@
     methods: {
       async submit () {
         this.loading = true
+        this.buttonIsDisabled = true
         await this.$store.dispatch('PUT_WORK_SECTOR', this.workSector)
         await this.$store.commit('SET_ALERT', { message: 'Successfully saved your answers.', colour: 'green darken-2', active: true })
         await this.$store.dispatch('GET_NAVIGATION')

@@ -9,7 +9,7 @@
             <v-card-title primary-title>
                 <div>
                     <h3 class="headline mb-0">Files shared with you.</h3>
-                    <div><strong>{{ $auth.state.user.client.name }}</strong> has shared the following files with you.
+                    <div><strong>{{ $auth.user.client.name }}</strong> has shared the following files with you.
                         These documents generally contain information your client feels will assist you in your tasks.
                     </div>
                 </div>
