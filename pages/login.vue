@@ -29,7 +29,7 @@
                           label="Password"
                           v-model="password"
                           :append-icon="e1 ? 'visibility_off' : 'visibility'"
-                          :append-icon-cb="() => (e1 = !e1)"
+                          @click:append="() => (e1 = !e1)"
                           :type="e1 ? 'password' : 'text'"
                           required
                   ></v-text-field>
