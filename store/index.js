@@ -221,7 +221,7 @@ const createStore = () => {
           p.toUrl = '/pqq/' + p.id
           if (p.progress < 100 && !p.isApproved) {
             obj.incomplete.push(p)
-          } else if (p.progress === 100 && !p.isApproved) {
+          } else if (p.progress >= 100 && !p.isApproved) {
             obj.complete.push(p)
           } else {
             obj.approved.push(p)
@@ -233,7 +233,7 @@ const createStore = () => {
           }
           if (p.progress < 100 && !p.isApproved) {
             obj.incomplete.push(p)
-          } else if (p.progress === 100 && !p.isApproved) {
+          } else if (p.progress >= 100 && !p.isApproved) {
             obj.complete.push(p)
           } else {
             obj.approved.push(p)
