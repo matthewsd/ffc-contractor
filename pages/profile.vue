@@ -153,18 +153,6 @@
                                                 v-model="contractor.email"
                                         ></v-text-field>
                                     </v-flex>
-                                    <v-flex sm12 m6 lg6>
-                                        <v-text-field
-                                                label="Emergency Contact Name"
-                                                v-model="employee.emergencyForename"
-                                        ></v-text-field>
-                                    </v-flex>
-                                    <v-flex sm12 m6 lg6>
-                                        <v-text-field
-                                                label="Emergency Contact Number"
-                                                v-model="employee.emergencyPhone"
-                                        ></v-text-field>
-                                    </v-flex>
                                 </v-layout>
                             </v-container>
                         </v-card-text>
