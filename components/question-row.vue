@@ -50,6 +50,13 @@
                                         :label='"Please select answer" + ((question.answer_isRequired == 1)? "*" : "")'
                                         :menu-props="bottom"
                                 ></v-select>
+                                <v-select
+                                        v-if="question.answer_type == 'yesno'"
+                                        v-model="question.answer"
+                                        :items="yesno_items"
+                                        :label='"Please select answer" + ((question.answer_isRequired == 1)? "*" : "")'
+                                        :menu-props="bottom"
+                                ></v-select>
                             </v-flex>
                             <v-flex xs12 md12 lg4>
                                 <v-menu
@@ -153,6 +160,10 @@
         { text: 'Yes', value: 'yes' },
         { text: 'No', value: 'no' },
         { text: 'N.A', value: 'na' }
+      ],
+      yesno_items: [
+        { text: 'Yes', value: 'yes' },
+        { text: 'No', value: 'no' },
       ]
     }),
     async asyncData (context) {
